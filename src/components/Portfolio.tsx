@@ -1,13 +1,6 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { 
-  Card,
-  CardContent, 
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card";
 
 interface Project {
   id: number;
@@ -56,32 +49,25 @@ const Portfolio: React.FC = () => {
         
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project) => (
-            <Card 
-              key={project.id} 
-              className="portfolio-card group overflow-hidden transform transition-all duration-500 hover:scale-[1.02] hover:shadow-lg hover:shadow-portfolio-blue/30"
-            >
-              <div className="mb-4 overflow-hidden">
+            <div key={project.id} className="portfolio-card flex flex-col">
+              <div className="mb-4 overflow-hidden rounded-xl">
                 <img 
                   src={project.image} 
                   alt={project.title}
-                  className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-48 object-cover transition-transform hover:scale-105 duration-300"
                 />
               </div>
-              <CardHeader className="p-4 pb-0">
-                <CardTitle className="text-xl font-bold">{project.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="p-4 pt-2">
-                <p className="text-gray-400">{project.description}</p>
-              </CardContent>
-              <CardFooter className="p-4 pt-0 flex gap-4">
+              <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+              <p className="text-gray-400 mb-6 flex-grow">{project.description}</p>
+              <div className="flex gap-4">
                 <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1">
                   <Button variant="outline" className="btn-primary w-full">Github</Button>
                 </a>
                 <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex-1">
                   <Button className="btn-secondary w-full">Live Demo</Button>
                 </a>
-              </CardFooter>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>

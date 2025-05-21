@@ -5,6 +5,7 @@ import About from '@/components/About';
 import Skills from '@/components/Skills';
 import Portfolio from '@/components/Portfolio';
 import Contact from '@/components/Contact';
+import NavBar from '@/components/NavBar';
 import MobileNav from '@/components/MobileNav';
 import Footer from '@/components/Footer';
 
@@ -68,8 +69,8 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-portfolio-dark-blue bg-[url('/placeholder.svg')] bg-blend-overlay bg-opacity-95">
-      {/* NavBar removed from here */}
+    <div className="min-h-screen bg-portfolio-dark-blue">
+      <NavBar onNavClick={scrollToSection} activeSection={activeSection} />
       
       <div ref={homeRef}>
         <Hero 
