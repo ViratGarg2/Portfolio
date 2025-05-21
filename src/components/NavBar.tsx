@@ -7,6 +7,8 @@ interface NavBarProps {
   activeSection: string;
 }
 
+// This component is now hidden from the main view
+// It's kept in case you want to add it back later
 const NavBar: React.FC<NavBarProps> = ({ onNavClick, activeSection }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -34,9 +36,10 @@ const NavBar: React.FC<NavBarProps> = ({ onNavClick, activeSection }) => {
     { id: 'contact', label: 'Contact' }
   ];
 
+  // Hidden with CSS
   return (
     <nav className={cn(
-      'fixed top-0 left-0 right-0 z-50 py-4 px-6 transition-all duration-300',
+      'fixed top-0 left-0 right-0 z-50 py-4 px-6 transition-all duration-300 hidden',
       isScrolled ? 'bg-portfolio-navy shadow-lg' : 'bg-transparent'
     )}>
       <div className="container mx-auto flex justify-between items-center">
