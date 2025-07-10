@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
@@ -69,8 +68,8 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-portfolio-dark-blue">
-      <NavBar onNavClick={scrollToSection} activeSection={activeSection} />
+    <div className="min-h-screen textured-bg">
+      {/* <NavBar onNavClick={scrollToSection} activeSection={activeSection} /> */}
       
       <div ref={homeRef}>
         <Hero 

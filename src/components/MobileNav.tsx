@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Home, User, Code2, FolderKanban, Mail } from 'lucide-react';
@@ -6,9 +5,10 @@ import { Home, User, Code2, FolderKanban, Mail } from 'lucide-react';
 interface MobileNavProps {
   onNavClick: (section: string) => void;
   activeSection: string;
+  alwaysVisible?: boolean;
 }
 
-const MobileNav: React.FC<MobileNavProps> = ({ onNavClick, activeSection }) => {
+const MobileNav: React.FC<MobileNavProps> = ({ onNavClick, activeSection, alwaysVisible }) => {
   const navItems = [
     { id: 'home', label: 'Home', icon: Home },
     { id: 'about', label: 'About', icon: User },
@@ -18,7 +18,9 @@ const MobileNav: React.FC<MobileNavProps> = ({ onNavClick, activeSection }) => {
   ];
 
   return (
-    <div className="fixed bottom-5 left-1/2 transform -translate-x-1/2 md:hidden z-50">
+    <div className={cn(
+      'fixed bottom-5 left-1/2 transform -translate-x-1/2 z-50',
+    )}>
       <div className="bg-portfolio-navy/90 backdrop-blur-md rounded-full px-2 py-2 flex items-center shadow-lg border border-gray-700/30">
         {navItems.map((item) => (
           <button
