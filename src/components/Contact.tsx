@@ -6,6 +6,9 @@ import { Mail, Send } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import useScrollAnimation from '@/hooks/useScrollAnimation';
 
+// API endpoint configuration
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
 const Contact: React.FC = () => {
   // Animation hooks with different effects
   const titleAnimation = useScrollAnimation('fade-up', { threshold: 0.1 });
@@ -21,11 +24,17 @@ const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
+  // Handler for message field to ensure spaces are preserved
+  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setMessage(value);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Validate the form
-    if (!name || !email || !message) {
+    if (!name || !email || !message.trim()) {
       toast({
         title: "Error",
         description: "Please fill out all required fields",
@@ -37,8 +46,8 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      // Send form data to the backend API
-      const response = await fetch('http://localhost:3001/api/send-email', {
+      // Send form data to the backend API using the configured API_URL
+      const response = await fetch(`${API_URL}/api/send-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -47,7 +56,7 @@ const Contact: React.FC = () => {
           name,
           email,
           subject,
-          message,
+          message: message.replace(/\r\n/g, '\n'), // Normalize line breaks
         }),
       });
 
@@ -66,6 +75,7 @@ const Contact: React.FC = () => {
         throw new Error(data.error || 'Failed to send message');
       }
     } catch (error) {
+      console.error('Contact form error:', error);
       toast({
         title: "Error",
         description: error instanceof Error ? error.message : "Failed to send message. Please try again later.",
@@ -163,9 +173,16 @@ const Contact: React.FC = () => {
               <Textarea
                 placeholder="Your Message"
                 value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="bg-portfolio-navy/50 border-gray-700 focus:border-portfolio-blue min-h-[100px]"
+                onChange={handleMessageChange}
+                onKeyDown={(e) => {
+                  if (e.key === ' ' || e.key === 'Spacebar') {
+                    e.stopPropagation(); // Prevent default space key behavior if any
+                  }
+                }}
+                className="bg-portfolio-navy/50 border-gray-700 focus:border-portfolio-blue min-h-[100px] whitespace-pre-wrap"
                 required
+                spellCheck="true"
+                wrap="soft"
               />
               
               <Button 

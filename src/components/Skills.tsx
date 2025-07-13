@@ -72,7 +72,6 @@ const Skills: React.FC = () => {
                     <CheckCircle className="text-portfolio-blue w-5 h-5" />
                     <div>
                       <h4 className="font-medium">{skill.name}</h4>
-                      <small className="text-gray-400">{skill.level}</small>
                     </div>
                   </div>
                 );
